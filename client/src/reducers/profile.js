@@ -11,7 +11,6 @@ import {
 const initialState = {
   profile: null,
   profiles: [],
-  repos: [],
   loading: true,
   error: {}
 };
@@ -31,7 +30,7 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         profiles: payload,
-        loading: false
+        loading: false,
       };
     case PROFILE_ERROR:
       return {
@@ -44,19 +43,8 @@ function profileReducer(state = initialState, action) {
       return {
         ...state,
         profile: null,
-        repos: []
       };
-    case GET_REPOS:
-      return {
-        ...state,
-        repos: payload,
-        loading: false
-      };
-    case NO_REPOS:
-      return {
-        ...state,
-        repos: []
-      };
+   
     default:
       return state;
   }

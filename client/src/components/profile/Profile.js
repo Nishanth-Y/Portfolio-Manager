@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-import { getProfileById } from '../../actions/profile';
+import { getProfileByName } from '../../actions/profile';
+import ProfileTop from './ProfileTop';
+import ProfileAbout from './ProfileAbout';
 
-const Profile = ({ getProfileById, profile: { profile }, auth }) => {
-  const { id } = useParams();
+const Profile = ({ getProfileByName, profile: { profile }, auth }) => {
+  const { name } = useParams();
   useEffect(() => {
-    getProfileById(id);
-  }, [getProfileById, id]);
+    getProfileByName(name);
+  }, [getProfileByName, name]);
 
   return (
     <section className="container">
@@ -27,6 +29,11 @@ const Profile = ({ getProfileById, profile: { profile }, auth }) => {
                 Edit Profile
               </Link>
             )}
+            <div className='profile-grid my-1'>
+             <ProfileTop profile={profile}/>
+             <ProfileAbout profile={profile}/>
+
+            </div>
         </Fragment>
       )}
     </section>
@@ -44,4 +51,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default connect(mapStateToProps, { getProfileByName })(Profile);

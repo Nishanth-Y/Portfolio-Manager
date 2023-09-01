@@ -37,8 +37,6 @@ router.get('/me', auth, async (req, res) => {
 router.post(
   '/',
   auth,
-  check('status', 'Status is required').notEmpty(),
-  check('skills', 'Skills is required').notEmpty(),
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -65,9 +63,6 @@ router.post(
         website && website !== ''
           ? normalize(website, { forceHttps: true })
           : '',
-      skills: Array.isArray(skills)
-        ? skills
-        : skills.split(',').map((skill) => ' ' + skill.trim()),
       ...rest
     };
 
@@ -86,7 +81,7 @@ router.post(
       // Using upsert option (creates new doc if no match is found):
       let profile = await Profile.findOneAndUpdate(
         { user: req.user.id },
-        { $set: profileFields },
+        { $set: profileFields },  
         { new: true, upsert: true, setDefaultsOnInsert: true }
       );
       return res.json(profile);
@@ -120,6 +115,31 @@ router.get(
     try {
       const profile = await Profile.findOne({
         user: user_id
+      }).populate('user', ['name', 'avatar']);
+
+      if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+
+      return res.json(profile);
+    } catch (err) {
+      console.error(err.message);
+      return res.status(500).json({ msg: 'Server error' });
+    }
+  }
+);
+
+// @route    GET api/profile/user/:user_id
+// @desc     Get profile by user ID
+// @access   Public
+router.get(
+  '/username/:name',
+  async (req, res) => {
+    try {
+      const user = await User.findOne({'name' : new RegExp(req.params.name, 'i')});
+      // res.send
+      if (!user) return res.status(400).json({ msg: 'User not found' });
+      
+      const profile = await Profile.findOne({
+       user: user._id
       }).populate('user', ['name', 'avatar']);
 
       if (!profile) return res.status(400).json({ msg: 'Profile not found' });

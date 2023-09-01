@@ -12,10 +12,9 @@ const Landing = ({ isAuthenticated }) => {
     <section className="landing">
       <div className="dark-overlay">
         <div className="landing-inner">
-          <h1 className="x-large">Bussiness man Portfolio</h1>
+          <h1 className="x-large">Bussiness Man Portfolio</h1>
           <p className="lead">
-            Create a Bussiness man profile/portfolio, share posts and get help from
-            other Bussiness mans
+            Create a Bussiness Man profile/portfolio, reach out to the public and showcase about your company.
           </p>
           <div className="buttons">
             <Link to="/register" className="btn btn-primary">

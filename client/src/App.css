@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+
 /* Global Styles */
 :root {
   --primary-color: #17a2b8;
@@ -5,6 +7,12 @@
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
   --success-color: #28a745;
+  --bg-color: #fdfdfd;
+  --text-color: #333;
+  --main-color: #754ef9;
+  --white-color: #fdfdfd;
+  --footer-text-color: #D5C9FD;
+  --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
 * {
@@ -17,7 +25,7 @@ body {
   font-family: 'Raleway', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
-  background-color: #fff;
+  background-color: var(--bg-color);
   color: #333;
 }
 
@@ -530,6 +538,258 @@ button {
   .navbar .welcome {
     display: none;
   }
+
+  header {
+    position: relative;
+    width: 100%;
+  }
+  
+  .profile-section {
+    margin-top: 74px;
+    position: relative;
+    width: inherit;
+  }
+  
+  .profile-img {
+    text-align: center;
+    width: 100%;
+    height: max-content;
+    background: linear-gradient(
+      180deg,
+      var(--main-color) 0%,
+      var(--main-color) 50%,
+      var(--bg-color) 50%,
+      var(--bg-color) 0%
+    );
+  }
+  
+  .profile-img img {
+    position: relative;
+    padding: 0;
+    margin: 30px;
+  }
+  
+  header .profile-section .information {
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    width: 100%;
+  }
+
+  span {
+    color: var(--main-color);
+  }
+  
+  h1 {
+    font-size: 2.4rem;
+    font-family: "Poppins", sans-serif;
+    color: var(--text-color);
+  }
+  
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    font-family: "Poppins", sans-serif;
+    color: var(--text-color);
+  }
+  
+  @media only screen and (max-width: 600px) {
+    .profile-img img {
+      position: relative;
+      padding: 0;
+      margin: 20px;
+      width: 30%;
+      height: auto;
+    }
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .profile-img img {
+      position: relative;
+      padding: 0;
+      margin: 20px;
+      width: 45%;
+      height: auto;
+    }
+  }
+  
+  .margin {
+    margin-right: 20px;
+  }
+  
+  .name {
+    font-size: 3rem;
+    font-weight: 700;
+    display: inline-block;
+    color: var(--text-color);
+    transition: .3s ease;
+  }
+  
+  .name:hover {
+    color: var(--main-color);
+  }
+  
+  @media only screen and (max-width: 450px) {
+    .name {
+      font-size: 2.4rem;
+      color: var(--text-color);
+    }
+  
+    h2 {
+      font-size: 1.4rem;
+      color: var(--text-color);
+    }
+  
+    .about .about-company p {
+      font-size: 0.8rem;
+      text-align: justify;
+    }
+  }
+  
+  header {
+    position: relative;
+    width: 100%;
+  }
+  
+  .profile-section {
+    margin-top: 74px;
+    position: relative;
+    width: inherit;
+  }
+  
+  .profile-img {
+    text-align: center;
+    width: 100%;
+    height: max-content;
+    background: linear-gradient(
+      180deg,
+      var(--main-color) 0%,
+      var(--main-color) 50%,
+      var(--bg-color) 50%,
+      var(--bg-color) 0%
+    );
+  }
+  
+  .profile-img img {
+    position: relative;
+    padding: 0;
+    margin: 30px;
+  }
+  
+  header .profile-section .information {
+    line-height: 1.5;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    width: 100%;
+  }
+  
+  .about, 
+  .contact, 
+  .gallery-contents {
+    padding-top: 65px;
+  }
+  
+  .about .about-company,
+  .contact .contact-me,
+  .gallery-contents {
+    margin-left: 5%;
+    margin-right: 5%;
+    text-align: left;
+    line-height: 1.5;
+  }
+  
+  .about .about-company h1,
+  .contact .contact-me h1,
+  .gallery h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: var(--text-color);
+  }
+  
+  section .about-company p {
+    width: inherit;
+    text-align: justify;
+  }
+  
+  .contact-link {
+    margin: 10px 40px 10px 0;
+    font-size: 2rem;
+    display: inline-block;
+  }
+  
+  .contact-link a {
+    margin-top: 5px;
+    margin-right: 10px;
+  }
+  
+  .contact-link i {
+    text-align: center;
+    padding: 4px;
+    color: var(--main-color);
+    border: 2px solid var(--main-color);
+    border-radius: 50%;
+    transition: 0.5s ease;
+  }
+  
+  .contact-link i:hover {
+    color: var(--white-color);
+    background-color: var(--main-color);
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  @media only screen and (max-width: 450px) {
+    .contact-link {
+      margin: 10px 20px 10px 0;
+      font-size: 2rem;
+      display: inline-block;
+    }
+  }
+  
+  @media only screen and (max-width: 375px) {
+    .contact-link {
+      margin: 10px 10px 10px 0;
+      font-size: 2rem;
+      display: inline-block;
+    }
+  }
+  
+  .read-more {
+    display: block;
+    font-weight: 600;
+    margin-top: 20px;
+    padding: 8px;
+    border: 2px solid var(--main-color);
+    color: var(--bg-color);
+    background-color: var(--main-color);
+    border-radius: 5px;
+    transition: 0.3s ease;
+    text-decoration: none;
+  }
+  
+  .read-more:hover {
+    color: var(--main-color);
+    background-color: var(--bg-color);
+  }
+  
+  .gallery-contents {
+    padding-bottom: 40px;
+  }
+  
+  .carousel-inner .carousel-item {
+    width: 100%;
+    height: 540px;
+  }
+  
+  .carousel-inner .carousel-item img {
+    width: auto;
+    height: inherit;
+  }
+  
 
   /* Profiles Page */
   .profile {

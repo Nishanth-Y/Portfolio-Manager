@@ -3,7 +3,7 @@ import { Link, useMatch, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
-import { FilePond, registerPlugin } from 'react-filepond';
+import { FilePond } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 
 /*
@@ -15,8 +15,7 @@ const initialState = {
   company: '',
   website: '',
   location: '',
-  status: '',
-  skills: '',
+
   githubusername: '',
   bio: '',
   twitter: '',
@@ -68,8 +67,6 @@ const ProfileForm = ({
     website,
     location,
     status,
-    skills,
-    githubusername,
     bio,
     twitter,
     facebook,
