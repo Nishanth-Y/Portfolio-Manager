@@ -92,7 +92,7 @@ router.post(
   }
 );
 
-// @route    GET api/profile
+// @route    GET api/profiles
 // @desc     Get all profiles
 // @access   Public
 router.get('/', async (req, res) => {
@@ -127,8 +127,8 @@ router.get(
   }
 );
 
-// @route    GET api/profile/user/:user_id
-// @desc     Get profile by user ID
+// @route    GET api/profile/user/:name
+// @desc     Get profile by user name
 // @access   Public
 router.get(
   '/username/:name',

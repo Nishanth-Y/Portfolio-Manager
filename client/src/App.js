@@ -21,6 +21,7 @@ import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
 import './App.css';
+import Admin from './components/auth/Admin';
 
 const App = () => {
   useEffect(() => {
@@ -41,11 +42,12 @@ const App = () => {
         <Navbar />
         <Alert />
         <Routes>
+          <Route path="profile/:name" element={<Profile />} />
           <Route path="/" element={<Landing />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
-          <Route path="profiles" element={<Profiles />} />
-          <Route path="profile/:name" element={<Profile />} />
+          <Route path="admin" element={<Admin />} />
+          <Route path="profiles" element={<PrivateRoute component={Profiles} />} />
           <Route
             path="dashboard"
             element={<PrivateRoute component={Dashboard} />}
