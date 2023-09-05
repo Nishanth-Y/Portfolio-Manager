@@ -3,8 +3,8 @@ import { Link, useMatch, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
-import { FilePond } from 'react-filepond';
-import 'filepond/dist/filepond.min.css';
+import api from '../../utils/api';
+import axios from 'axios';
 
 /*
   NOTE: declare initialState outside of component
@@ -30,8 +30,6 @@ const ProfileForm = ({
   createProfile,
   getCurrentProfile
 }) => {
-  const [files, setFiles] = useState([]);
-
   const [formData, setFormData] = useState(initialState);
 
   const creatingProfile = useMatch('/create-profile');
@@ -40,6 +38,29 @@ const ProfileForm = ({
 
   const navigate = useNavigate();
 
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    try {
+      const formData = new FormData();
+      formData.append('profile', profile._id);
+      formData.append('image', selectedFile);
+      const response = await axios.post('http://localhost:6001/api/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Access-Control-Allow-Origin': '*'
+        },
+      });
+
+      console.log('Image uploaded successfully:', response.data);
+    } catch (error) {
+      console.error('Error uploading image:', error);
+    }
+  };
   useEffect(() => {
     // if there is no profile, attempt to fetch one
     if (!profile) getCurrentProfile();
@@ -73,9 +94,6 @@ const ProfileForm = ({
     linkedin,
     youtube,
     instagram,
-    image1,
-    image2,
-    image3
   } = formData;
 
   const onChange = (e) =>
@@ -235,26 +253,16 @@ const ProfileForm = ({
           </Fragment>
         )}
 
-        <div className="form-group">
+      <div className="form-group">
+        <input type="file" onChange={handleFileChange} />
+        <button onClick={handleUpload}>Upload Image</button>
+      </div>
           
-        <FilePond
-                files={files}
-                onupdatefiles={setFiles}
-                allowMultiple={true}
-                maxFiles={3}
-                server="/api"
-                name="files"
-                labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
-            />
-          </div>
-          
-
-
-        <input type="submit" className="btn btn-primary my-1" />
-        <Link className="btn btn-light my-1" to="/dashboard">
-          Go Back
-        </Link>
-      </form>
+      <input type="submit" className="btn btn-primary my-1" />
+      <Link className="btn btn-light my-1" to="/dashboard">
+        Go Back
+      </Link>
+    </form>
     </section>
   );
 };

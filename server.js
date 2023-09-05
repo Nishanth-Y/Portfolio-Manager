@@ -9,10 +9,12 @@ connectDB();
 
 // Init Middleware
 app.use(express.json());
+app.use('/uploads', express.static('uploads'));
 
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/admin', require('./routes/api/admin'));
+app.use('/api/upload', require('./routes/api/images'));
 app.use('/api/profile', require('./routes/api/profile'));
 
 if (process.env.NODE_ENV === 'production') {
@@ -24,6 +26,6 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 6001;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
