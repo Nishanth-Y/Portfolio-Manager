@@ -3,7 +3,6 @@ const router = express.Router();
 const Images = require('../../models/Images');
 const multer = require('multer')
 const path = require('path');
-const { log, profile } = require('console');
 
 const storage = multer.diskStorage({
   destination: './uploads',
@@ -16,13 +15,10 @@ const upload = multer({ storage });
 router.post('/', upload.single('image'), async (req, res) => {
   console.log('Image route');
   try {
-    const { profile } = req.body; // Replace with the actual profile ID
+    const { profile } = req.body; 
     const { filename, path } = req.file;
-    console
 
     const image = new Images({ profile, filename, path });
-
-    // const image = new Images(imageFields); //filename1, path1, filename2, path2, filename3, path3 });
     await image.save();
 
     res.json({ message: 'Image uploaded successfully' });

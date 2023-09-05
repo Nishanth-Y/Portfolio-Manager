@@ -52,7 +52,6 @@ const ProfileForm = ({
       const response = await axios.post('http://localhost:6001/api/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          'Access-Control-Allow-Origin': '*'
         },
       });
 
