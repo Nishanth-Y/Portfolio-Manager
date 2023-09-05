@@ -30,7 +30,7 @@ const ProfileTop = ({ profile: {_id, company, location, status, user:{ name }} }
     <div className="header-div text-center">
     <div className="profile-section">
         <div className="profile-img">  
-            <img src={process.env.PUBLIC_URL + `/uploads/${imageFilename}`} alt="profile image"/>
+            <img src={window.location.origin + `/uploads/${imageFilename}`} alt="profile image"/>
         </div>
         <div className="information">
             <h1 className="name">{name}</h1>

@@ -5,7 +5,7 @@ const multer = require('multer')
 const path = require('path');
 
 const storage = multer.diskStorage({
-  destination: './uploads',
+  destination: './client/public/uploads',
   filename: (req, file, cb) => {
     cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   },
@@ -18,8 +18,17 @@ router.post('/', upload.single('image'), async (req, res) => {
     const { profile } = req.body; 
     const { filename, path } = req.file;
 
+    const imageFile = {
+      profile: profile,
+      filename: filename,
+      path: path
+    }
     const image = new Images({ profile, filename, path });
-    await image.save();
+    let Image = await Images.findOneAndUpdate(
+      { profile: profile },
+      { $set: imageFile },  
+      { new: true, upsert: true, setDefaultsOnInsert: true }
+    );
 
     res.json({ message: 'Image uploaded successfully' });
   } catch (error) {

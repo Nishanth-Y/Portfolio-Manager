@@ -253,11 +253,7 @@ const ProfileForm = ({
         )}
 
       <div className="form-group">
-        <input type="file" name="filename" onChange={handleFileChange} />
-        <input type="file" name="filename1" onChange={handleFileChange} />
-        <input type="file" name="filename2" onChange={handleFileChange} />
-        <input type="file" name="filename3" onChange={handleFileChange} />
-        <input type="file" name="filename4" onChange={handleFileChange} />
+        <input type="file" onChange={handleFileChange} />
         <button onClick={handleUpload}>Upload Image</button>
       </div>
           
