@@ -1,15 +1,39 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import api from '../../utils/api';
 
 const ProfileAbout = ({
   profile: {
+    _id,
     bio,
     company,
     social,
     website,
     user: { email }
   }
-}) => (
+}) => {
+  const [imageFilename, setImageFilename] = useState('');
+    useEffect(() => {
+      // Define a function to fetch image filenames
+      const fetchImageFilenames = async () => {
+        try {
+          const response = await api.get(`upload/${_id}`, {
+            headers: {"Access-Control-Allow-Origin": "*"}
+          });
+          const { filename } = response.data; // Assuming the API returns an array of paths
+          console.log(filename);
+          setImageFilename(filename);
+
+        } catch (error) {
+          console.error('Error fetching image filenames:', error);
+        }
+      };
+      fetchImageFilenames();
+    }, [_id]);
+  
+  return(
+  
     <div className="about-company">
     {bio && (
       <Fragment>
@@ -42,10 +66,10 @@ const ProfileAbout = ({
           <div className="bg-dark pb-4">
             <h1 className="text-center text-light mb-2 pt-3">Gallery</h1>
             <div className="scroll-container">
-                <img src="" alt="" srcset="" />
-                <img src="" alt="" srcset="" />
-                <img src="" alt="" srcset="" />
-                <img src="" alt="" srcset="" />
+                <img src={window.location.origin + `/uploads/${imageFilename}`} alt="" srcset="" />
+                <img src={window.location.origin + `/uploads/${imageFilename}`} alt="" srcset="" />
+                <img src={window.location.origin + `/uploads/${imageFilename}`} alt="" srcset="" />
+                <img src={window.location.origin + `/uploads/${imageFilename}`} alt="" srcset="" />
             </div>
           </div>
           <div></div>
@@ -58,7 +82,7 @@ const ProfileAbout = ({
       </Fragment>
     )}
     </div>
-);
+)};
 
 ProfileAbout.propTypes = {
   profile: PropTypes.object.isRequired
