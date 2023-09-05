@@ -42,7 +42,10 @@ const ProfileAbout = ({
           <div className="bg-dark pb-4">
             <h1 className="text-center text-light mb-2 pt-3">Gallery</h1>
             <div className="scroll-container">
-                
+                <img src="" alt="" srcset="" />
+                <img src="" alt="" srcset="" />
+                <img src="" alt="" srcset="" />
+                <img src="" alt="" srcset="" />
             </div>
           </div>
           <div></div>

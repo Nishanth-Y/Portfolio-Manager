@@ -1,19 +1,40 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
+import api from '../../utils/api';
 
 const ProfileItem = ({
   profile: {
+    _id,
     user:{
-      _id, name, avatar
+      name, avatar
     },
     company,
     location
   }
 }) => {
+  const [imageFilename, setImageFilename] = useState('');
+    useEffect(() => {
+      // Define a function to fetch image filenames
+      const fetchImageFilenames = async () => {
+        try {
+          const response = await api.get(`upload/${_id}`, {
+            headers: {"Access-Control-Allow-Origin": "*"}
+          });
+          const { filename } = response.data; // Assuming the API returns an array of paths
+          console.log(filename);
+          setImageFilename(filename);
+
+        } catch (error) {
+          console.error('Error fetching image filenames:', error);
+        }
+      };
+      fetchImageFilenames();
+    }, [_id]);
   return (
     <div className='profile bg-light'>
-      <img src={avatar} alt='' className='round-img' />
+      <img src={window.location.origin + `/uploads/${imageFilename}`} height={150} alt='' className='round-img' />
       <div>
         <h2>{name}</h2>
         <p>

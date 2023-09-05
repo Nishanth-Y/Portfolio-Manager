@@ -685,8 +685,8 @@ section .about-company p {
   
   .profile-img {
     text-align: center;
-    width: 100%;
-    height: max-content;
+    width:50%;
+    height: auto;
     background: linear-gradient(
       180deg,
       var(--main-color) 0%,

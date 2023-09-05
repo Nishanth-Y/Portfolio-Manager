@@ -27,6 +27,13 @@ const Dashboard = ({
         
 
           <div className="my-2">
+            <Link to={`/profile/${user.name}`}>
+              <button className="btn btn-success" >
+                <i className="fas fa-user" /> Preview
+              </button>
+            </Link>
+          </div>
+          <div className="my-2">
             <button className="btn btn-danger" onClick={() => deleteAccount()}>
               <i className="fas fa-user-minus" /> Delete My Account
             </button>
