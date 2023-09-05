@@ -28,4 +28,17 @@ router.post('/', upload.single('image'), async (req, res) => {
   }
 });
 
+router.get('/:profileId', async (req, res) => {
+  try {
+    const profileId = req.params.profileId;
+    const condition = { profile: profileId };
+
+    const images = await Images.findOne(condition);
+    res.json(images);
+  } catch (error) {
+    console.error('Error fetching image path:', error);
+    res.status(500).json({ error: 'Failed to fetch image path' });
+  }
+});
+
 module.exports = router;

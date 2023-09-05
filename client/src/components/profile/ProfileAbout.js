@@ -16,7 +16,7 @@ const ProfileAbout = ({
           <h1>About <span>{company.trim().split(' ')[0]}</span></h1>
           <p>{bio}</p>
             {/* <a href="#" style="display: inline-block;"><button className="read-more">Read More</button></a> */}
-          <div classNameName='line' />
+          <div className='line' />
           <div className="contact-me">
             <h1>Contact <span>Me</span></h1>
             <div className="contact-btns">

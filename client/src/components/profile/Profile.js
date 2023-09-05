@@ -6,6 +6,7 @@ import Spinner from '../layout/Spinner';
 import { getProfileByName } from '../../actions/profile';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
+import { getImagefromId } from '../../actions/image';
 
 const Profile = ({ getProfileByName, profile: { profile }, auth }) => {
   const { name } = useParams();
@@ -37,7 +38,6 @@ const Profile = ({ getProfileByName, profile: { profile }, auth }) => {
 };
 
 Profile.propTypes = {
-  getProfileById: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired
 };

@@ -9,6 +9,7 @@ connectDB();
 
 // Init Middleware
 app.use(express.json());
+
 app.use('/uploads', express.static('uploads'));
 
 app.use('/api/users', require('./routes/api/users'));

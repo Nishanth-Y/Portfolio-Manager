@@ -450,7 +450,18 @@ h2 {
   width: 30%;
   border-radius: 50%;
 }
+.scroll-container {
+  /* background-color: #333; */
+  overflow: auto;
+  white-space: nowrap;
+  padding: 10px;
+}
 
+div.scroll-container img {
+  padding: 10px;
+  height:50%;
+  width:50%;
+}
 .header-div .profile-section .information {
   line-height: 1.5;
   color: var(--text-color);
