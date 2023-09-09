@@ -10,6 +10,14 @@ const Profiles = ({ getProfiles, profile: { profiles, loading }, auth: {isAdminA
     getProfiles();
   }, [getProfiles]);
 
+  const profilesData = profiles.reduce((profile, obj) => {
+    const company = obj.company;
+    if (!profile[company]) {
+      profile[company] = [];
+    }
+    profile[company].push(obj);
+    return profile;
+  }, {});
   return (
     <div className="container">
        {isAdminAuthenticated == true ? (
@@ -22,15 +30,32 @@ const Profiles = ({ getProfiles, profile: { profiles, loading }, auth: {isAdminA
                <p className="lead">
                  Browse and check with Portfolios
                </p>
+               <div>
+                {Object.keys(profilesData).map((companyName, index) => (
+                <div key={index}>
+                  <p className='lead'>Company: {companyName}</p>
+                  <ul>
+                    {profilesData[companyName].map((obj, objIndex) => (
+                      <li key={objIndex}>
+                          <ProfileItem key={obj._id} profile={obj} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+               </div>
                <div className="profiles">
-                 {profiles.length > 0 ? (
+                 {/* {profiles.length > 0 ? (
                    profiles.map((profile) => (
-                     <ProfileItem key={profile._id} profile={profile} />
+                     <div>
+                      <ProfileItem key={profile._id} profile={profile} />
+                    </div>
                    ))
                  ) : (
                    <h4>No profiles found...</h4>
-                 )}
+                 )} */}
                </div>
+               {/* <p className='lead'>Company: {profiles[0].company}</p> */}
              </Fragment>
            )}
          </section>

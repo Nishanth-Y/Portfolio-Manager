@@ -152,6 +152,37 @@ router.get(
   }
 );
 
+// @route    GET api/profile/user/:name
+// @desc     Get profile by user name
+// @access   Public
+router.delete(
+  '/username/:name',
+  async (req, res) => {
+    try {
+      const user = await User.findOne({'name' : new RegExp(req.params.name, 'i')});
+      // res.send
+      if (!user) return res.status(400).json({ msg: 'User not found' });
+      
+      const profile = await Profile.findOne({
+       user: user._id
+      });
+
+      if (!profile) return res.status(400).json({ msg: 'Profile not found' });
+
+
+      await Promise.all([
+        Profile.findOneAndRemove({ user: user._id }),
+        User.findOneAndRemove({ _id: user._id })
+      ]);
+  
+      res.json({ msg: 'User deleted' });
+    } catch (err) {
+      console.error(err.message);
+      return res.status(500).json({ msg: 'Server error' });
+    }
+  }
+);
+
 // @route    DELETE api/profile
 // @desc     Delete profile, user & posts
 // @access   Private

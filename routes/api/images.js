@@ -3,6 +3,7 @@ const router = express.Router();
 const Images = require('../../models/Images');
 const multer = require('multer')
 const path = require('path');
+const { log } = require('console');
 
 const storage = multer.diskStorage({
   destination: './client/public/uploads',
@@ -12,18 +13,20 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', upload.array('image', 5), async (req, res) => {
   console.log('Image route');
   try {
     const { profile } = req.body; 
-    const { filename, path } = req.file;
-
-    const imageFile = {
+    const uploadedImages = req.files;
+    const imageObject = uploadedImages.map(image => ({
+      filename: image.filename,
+      path: image.path,
+    }))
+    const imageFile = ({
       profile: profile,
-      filename: filename,
-      path: path
-    }
-    const image = new Images({ profile, filename, path });
+      images: imageObject
+    });
+
     let Image = await Images.findOneAndUpdate(
       { profile: profile },
       { $set: imageFile },  

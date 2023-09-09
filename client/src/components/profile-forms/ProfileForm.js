@@ -38,24 +38,29 @@ const ProfileForm = ({
 
   const navigate = useNavigate();
 
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFiles, setSelectedFiles] = useState([]);
 
   const handleFileChange = (e) => {
-    setSelectedFile(e.target.files[0]);
+    const files = Array.from(e.target.files);
+    setSelectedFiles(files);
   };
 
   const handleUpload = async () => {
-    try {
+    try{
+
       const formData = new FormData();
       formData.append('profile', profile._id);
-      formData.append('image', selectedFile);
+      selectedFiles.forEach((file, index) => {
+        formData.append(`image`, file);
+      });
       const response = await axios.post('http://localhost:6001/api/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
-      });
-
+      });     
       console.log('Image uploaded successfully:', response.data);
+
+      setSelectedFiles([]);
     } catch (error) {
       console.error('Error uploading image:', error);
     }
@@ -253,7 +258,7 @@ const ProfileForm = ({
         )}
 
       <div className="form-group">
-        <input type="file" onChange={handleFileChange} />
+        <input type="file" multiple onChange={handleFileChange} />
         <button onClick={handleUpload}>Upload Image</button>
       </div>
           

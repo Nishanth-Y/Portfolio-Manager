@@ -14,9 +14,9 @@ const ProfileTop = ({ profile: {_id, company, location, status, user:{ name }} }
           const response = await api.get(`upload/${_id}`, {
             headers: {"Access-Control-Allow-Origin": "*"}
           });
-          const { filename } = response.data; // Assuming the API returns an array of paths
-          console.log(filename);
-          setImageFilename(filename);
+          const imageFileNames = response.data.images[0]; // Assuming the API returns an array of paths
+          console.log(imageFileNames.filename);
+          setImageFilename(imageFileNames.filename); 
 
         } catch (error) {
           console.error('Error fetching image filenames:', error);

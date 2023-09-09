@@ -22,7 +22,7 @@ const ProfileItem = ({
           const response = await api.get(`upload/${_id}`, {
             headers: {"Access-Control-Allow-Origin": "*"}
           });
-          const { filename } = response.data; // Assuming the API returns an array of paths
+          const { filename } = response.data.images[0]; // Assuming the API returns an array of paths
           console.log(filename);
           setImageFilename(filename);
 

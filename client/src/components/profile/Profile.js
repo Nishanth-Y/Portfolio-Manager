@@ -7,8 +7,9 @@ import { getProfileByName } from '../../actions/profile';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
 import { getImagefromId } from '../../actions/image';
+import { deleteAccountByName } from '../../actions/profile';
 
-const Profile = ({ getProfileByName, profile: { profile }, auth }) => {
+const Profile = ({ getProfileByName, deleteAccountByName, profile: { profile }, auth }) => {
   const { name } = useParams();
   useEffect(() => {
     getProfileByName(name);
@@ -27,6 +28,11 @@ const Profile = ({ getProfileByName, profile: { profile }, auth }) => {
                 Edit Profile
               </Link>
             )}
+          {auth.isAdminAuthenticated && (
+              <button className="btn btn-danger" onClick={() => deleteAccountByName(name)}>
+               <i className="fas fa-user-minus" /> Delete My Account
+             </button>
+            )}
 
              <ProfileTop profile={profile}/>
              <ProfileAbout profile={profile}/>
@@ -39,7 +45,8 @@ const Profile = ({ getProfileByName, profile: { profile }, auth }) => {
 
 Profile.propTypes = {
   profile: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  deleteAccountByName: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -47,4 +54,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, { getProfileByName })(Profile);
+export default connect(mapStateToProps, { deleteAccountByName, getProfileByName })(Profile);

@@ -5,8 +5,12 @@ const Images = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'profiles'
   },
-  filename: String,
-  path: String,
+  images: [
+    {
+      filename: String,
+      path: String,
+    }
+  ],
   date: {
     type: Date,
     default: Date.now

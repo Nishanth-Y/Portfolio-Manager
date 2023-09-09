@@ -13,7 +13,7 @@ const ProfileAbout = ({
     user: { email }
   }
 }) => {
-  const [imageFilename, setImageFilename] = useState('');
+  const [imageFilename, setImageFilename] = useState([]);
     useEffect(() => {
       // Define a function to fetch image filenames
       const fetchImageFilenames = async () => {
@@ -21,9 +21,9 @@ const ProfileAbout = ({
           const response = await api.get(`upload/${_id}`, {
             headers: {"Access-Control-Allow-Origin": "*"}
           });
-          const { filename } = response.data; // Assuming the API returns an array of paths
-          console.log(filename);
-          setImageFilename(filename);
+          const imageFileNames = response.data; // Assuming the API returns an array of paths
+          const imagesFile = imageFileNames.images.filter((image) => image != imageFileNames.images[0])
+          setImageFilename(imagesFile);  
 
         } catch (error) {
           console.error('Error fetching image filenames:', error);
@@ -45,7 +45,6 @@ const ProfileAbout = ({
             <h1>Contact <span>Me</span></h1>
             <div className="contact-btns">
               <div className="contact-link">
-                    {/* <a href="https://www.linkedin.com/in/adarsha-m-a77a6b229/" target="_blank"><i className='bx bxl-linkedin'></i></a> */}
                 {social
                   ? Object.entries(social)
                     .filter(([_, value]) => value)
@@ -66,10 +65,9 @@ const ProfileAbout = ({
           <div className="bg-dark pb-4">
             <h1 className="text-center text-light mb-2 pt-3">Gallery</h1>
             <div className="scroll-container">
-                <img src={window.location.origin + `/uploads/${imageFilename}`} alt="" srcset="" />
-                <img src={window.location.origin + `/uploads/${imageFilename}`} alt="" srcset="" />
-                <img src={window.location.origin + `/uploads/${imageFilename}`} alt="" srcset="" />
-                <img src={window.location.origin + `/uploads/${imageFilename}`} alt="" srcset="" />
+                {imageFilename.map((image) => (
+                  <img key={image._id} src={window.location.origin + `/uploads/${image.filename}`} />
+                ))}
             </div>
           </div>
           <div></div>
