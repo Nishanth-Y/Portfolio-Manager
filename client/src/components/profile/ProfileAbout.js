@@ -22,7 +22,7 @@ const ProfileAbout = ({
             headers: {"Access-Control-Allow-Origin": "*"}
           });
           const imageFileNames = response.data; // Assuming the API returns an array of paths
-          const imagesFile = imageFileNames.images.filter((image) => image != imageFileNames.images[0])
+          const imagesFile = imageFileNames.images.filter((image) => image !== imageFileNames.images[0])
           setImageFilename(imagesFile);  
 
         } catch (error) {
@@ -66,7 +66,7 @@ const ProfileAbout = ({
             <h1 className="text-center text-light mb-2 pt-3">Gallery</h1>
             <div className="scroll-container">
                 {imageFilename.map((image) => (
-                  <img key={image._id} src={window.location.origin + `/uploads/${image.filename}`} />
+                  <img key={image._id} src={window.location.origin + `/uploads/${image.filename}` } alt="Gallery"/>
                 ))}
             </div>
           </div>

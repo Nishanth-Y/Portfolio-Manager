@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { getImagefromId } from '../../actions/image'
-import { connect } from 'react-redux'
 import api from '../../utils/api'
 
 const ProfileTop = ({ profile: {_id, company, location, status, user:{ name }} }) => {
@@ -30,7 +28,7 @@ const ProfileTop = ({ profile: {_id, company, location, status, user:{ name }} }
     <div className="header-div text-center">
     <div className="profile-section">
         <div className="profile-img">  
-            <img src={window.location.origin + `/uploads/${imageFilename}`} height={300} alt="profile image"/>
+            <img src={window.location.origin + `/uploads/${imageFilename}`} height={300} alt="profile"/>
         </div>
         <div className="information">
             <h1 className="name">{name}</h1>

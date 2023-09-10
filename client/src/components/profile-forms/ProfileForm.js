@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 import api from '../../utils/api';
-import axios from 'axios';
 
 /*
   NOTE: declare initialState outside of component
@@ -53,7 +52,7 @@ const ProfileForm = ({
       selectedFiles.forEach((file, index) => {
         formData.append(`image`, file);
       });
-      const response = await axios.post('http://localhost:6001/api/upload', formData, {
+      const response = await api.post('/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

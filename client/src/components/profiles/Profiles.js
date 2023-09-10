@@ -11,16 +11,16 @@ const Profiles = ({ getProfiles, profile: { profiles, loading }, auth: {isAdminA
   }, [getProfiles]);
 
   const profilesData = profiles.reduce((profile, obj) => {
-    const company = obj.company;
-    if (!profile[company]) {
-      profile[company] = [];
+    const status = obj.status;
+    if (!profile[status]) {
+      profile[status] = [];
     }
-    profile[company].push(obj);
+    profile[status].push(obj);
     return profile;
   }, {});
   return (
     <div className="container">
-       {isAdminAuthenticated == true ? (
+       {isAdminAuthenticated === true ? (
          <section className="container">
            {loading ? (
              <Spinner />
@@ -31,11 +31,11 @@ const Profiles = ({ getProfiles, profile: { profiles, loading }, auth: {isAdminA
                  Browse and check with Portfolios
                </p>
                <div>
-                {Object.keys(profilesData).map((companyName, index) => (
+                {Object.keys(profilesData).map((StatusName, index) => (
                 <div key={index}>
-                  <p className='lead'>Company: {companyName}</p>
+                  <p className='lead'>Job Role: {StatusName}</p>
                   <ul>
-                    {profilesData[companyName].map((obj, objIndex) => (
+                    {profilesData[StatusName].map((obj, objIndex) => (
                       <li key={objIndex}>
                           <ProfileItem key={obj._id} profile={obj} />
                       </li>

@@ -6,7 +6,6 @@ import Spinner from '../layout/Spinner';
 import { getProfileByName } from '../../actions/profile';
 import ProfileTop from './ProfileTop';
 import ProfileAbout from './ProfileAbout';
-import { getImagefromId } from '../../actions/image';
 import { deleteAccountByName } from '../../actions/profile';
 
 const Profile = ({ getProfileByName, deleteAccountByName, profile: { profile }, auth }) => {
