@@ -16,13 +16,12 @@ const ProfileAbout = ({
   const [imageFilename, setImageFilename] = useState([]);
   const [logoImage, setLogoImage] = useState('');
     useEffect(() => {
-      // Define a function to fetch image filenames
       const fetchImageFilenames = async () => {
         try {
           const response = await api.get(`upload/${_id}`, {
             headers: {"Access-Control-Allow-Origin": "*"}
           });
-          const imageFileNames = response.data; // Assuming the API returns an array of paths
+          const imageFileNames = response.data; 
           const logo = imageFileNames.images[1].filename;
           const imagesFile = imageFileNames.images.filter((image) => image !== imageFileNames.images[0] && image !== imageFileNames.images[1])
           setLogoImage(logo);
@@ -61,7 +60,7 @@ const ProfileAbout = ({
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <i className={`bx bxl-${key}`}></i>
+                        {key === 'plus' ? <i className={`bx bx-link`}></i> : <i className={`bx bxl-${key}`}></i> }
                       </a>
                       ))
                   : null}

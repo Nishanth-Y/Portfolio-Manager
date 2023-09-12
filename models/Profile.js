@@ -40,7 +40,11 @@ const ProfileSchema = new mongoose.Schema({
     },
     instagram: {
       type: String
-    }
+    },
+    slack: String,
+    telegram: String,
+    whatsapp: String,
+    plus: String,
   },
   date: {
     type: Date,

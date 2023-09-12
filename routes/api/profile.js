@@ -52,7 +52,10 @@ router.post(
       instagram,
       linkedin,
       facebook,
-      // spread the rest of the fields we don't need to check
+      slack,
+      telegram,
+      whatsapp,
+      plus,
       ...rest
     } = req.body;
 
@@ -67,7 +70,7 @@ router.post(
     };
 
     // Build socialFields object
-    const socialFields = { youtube, twitter, instagram, linkedin, facebook };
+    const socialFields = { youtube, twitter, instagram, linkedin, facebook, slack, telegram, whatsapp, plus };
 
     // normalize social fields to ensure valid url
     for (const [key, value] of Object.entries(socialFields)) {
