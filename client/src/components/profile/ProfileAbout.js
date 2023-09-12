@@ -14,6 +14,7 @@ const ProfileAbout = ({
   }
 }) => {
   const [imageFilename, setImageFilename] = useState([]);
+  const [logoImage, setLogoImage] = useState('');
     useEffect(() => {
       // Define a function to fetch image filenames
       const fetchImageFilenames = async () => {
@@ -22,7 +23,9 @@ const ProfileAbout = ({
             headers: {"Access-Control-Allow-Origin": "*"}
           });
           const imageFileNames = response.data; // Assuming the API returns an array of paths
-          const imagesFile = imageFileNames.images.filter((image) => image !== imageFileNames.images[0])
+          const logo = imageFileNames.images[1].filename;
+          const imagesFile = imageFileNames.images.filter((image) => image !== imageFileNames.images[0] && image !== imageFileNames.images[1])
+          setLogoImage(logo);
           setImageFilename(imagesFile);  
 
         } catch (error) {
@@ -37,9 +40,12 @@ const ProfileAbout = ({
     <div className="about-company">
     {bio && (
       <Fragment>
-          <h1>About <span>{company.trim().split(' ')[0]}</span></h1>
+          <h1>About 
+            <br />
+            {console.log(logoImage)}
+            <img src={window.location.origin + `/uploads/${logoImage}`} alt='logo' style={{width: "10%"}}/>
+            <span>{company.trim().split(' ')[0]}</span></h1> 
           <p>{bio}</p>
-            {/* <a href="#" style="display: inline-block;"><button className="read-more">Read More</button></a> */}
           <div className='line' />
           <div className="contact-me">
             <h1>Contact <span>Me</span></h1>

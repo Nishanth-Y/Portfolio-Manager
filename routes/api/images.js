@@ -13,7 +13,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage });
 
-router.post('/', upload.array('image', 5), async (req, res) => {
+router.post('/', upload.array('image', 6), async (req, res) => {
   console.log('Image route');
   try {
     const { profile } = req.body; 
