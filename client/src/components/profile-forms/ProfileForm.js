@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 import api from '../../utils/api';
-import axios from 'axios';
 
 /*
   NOTE: declare initialState outside of component
@@ -15,14 +14,16 @@ const initialState = {
   company: '',
   website: '',
   location: '',
-
-  githubusername: '',
   bio: '',
   twitter: '',
   facebook: '',
   linkedin: '',
   youtube: '',
-  instagram: ''
+  instagram: '',
+  slack: '',
+  telegram: '',
+  whatsapp: '',
+  plus: ''
 };
 
 const ProfileForm = ({
@@ -53,7 +54,7 @@ const ProfileForm = ({
       selectedFiles.forEach((file, index) => {
         formData.append(`image`, file);
       });
-      const response = await axios.post('http://localhost:6001/api/upload', formData, {
+      const response = await api.post('/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -71,18 +72,19 @@ const ProfileForm = ({
 
     // if we finished loading and we do have a profile
     // then build our profileData
+    console.log(profile);
     if (!loading && profile) {
       const profileData = { ...initialState };
       for (const key in profile) {
         if (key in profileData) profileData[key] = profile[key];
       }
       for (const key in profile.social) {
-        if (key in profileData) profileData[key] = profile.social[key];
+        if (key in profileData) {
+          console.log(profile.social['plus']);
+          profileData[key] = profile.social[key];
+        }
       }
-      // the skills may be an array from our API response
-      if (Array.isArray(profileData.skills))
-        profileData.skills = profileData.skills.join(', ');
-      // set local state with the profileData
+      
       setFormData(profileData);
     }
   }, [loading, getCurrentProfile, profile]);
@@ -98,6 +100,10 @@ const ProfileForm = ({
     linkedin,
     youtube,
     instagram,
+    slack,
+    telegram,
+    whatsapp,
+    plus
   } = formData;
 
   const onChange = (e) =>
@@ -243,7 +249,6 @@ const ProfileForm = ({
                 onChange={onChange}
               />
             </div>
-
             <div className="form-group social-input">
               <i className="fab fa-instagram fa-2x" />
               <input
@@ -254,12 +259,55 @@ const ProfileForm = ({
                 onChange={onChange}
               />
             </div>
+            <div className="form-group social-input">
+              <i className="fab fa-slack fa-2x" />
+              <input
+                type="text"
+                placeholder="Slack URL"
+                name="slack"
+                value={slack}
+                onChange={onChange}
+              />
+            </div>
+            <div className="form-group social-input">
+              <i className="fab fa-telegram fa-2x" />
+              <input
+                type="text"
+                placeholder="telegram URL"
+                name="telegram"
+                value={telegram}
+                onChange={onChange}
+              />
+            </div>
+            <div className="form-group social-input">
+              <i className="fab fa-whatsapp fa-2x" />
+              <input
+                type="text"
+                placeholder="whatsapp URL"
+                name="whatsapp"
+                value={whatsapp}
+                onChange={onChange}
+              />
+            </div>
+            
+            <div className="form-group social-input">
+              <i className="fas fa-plus fa-2x" />
+              <input
+                type="text"
+                placeholder="Additional Link"
+                name="plus"
+                value={plus}
+                onChange={onChange}
+              />
+            </div>
           </Fragment>
         )}
 
       <div className="form-group">
         <input type="file" multiple onChange={handleFileChange} />
         <button onClick={handleUpload}>Upload Image</button>
+        <br />
+        <small>Select First file and Profile Pic and Second file as Company Logo and the rest 4 images for the gallery</small>
       </div>
           
       <input type="submit" className="btn btn-primary my-1" />

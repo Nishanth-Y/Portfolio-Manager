@@ -11,7 +11,6 @@ function ImageForm() {
   const handleUpload = async () => {
     try {
       const formData = new FormData();
-      // formData.append('profile', )
       formData.append('image', selectedFile);
 
       const response = await api.post('/upload', formData, {
