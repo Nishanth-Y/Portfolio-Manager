@@ -28,7 +28,7 @@ const App = () => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
-   
+
     store.dispatch(loadUser());
 
     window.addEventListener('storage', () => {
@@ -47,7 +47,10 @@ const App = () => {
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="admin" element={<Admin />} />
-          <Route path="profiles" element={<PrivateRoute component={Profiles} />} />
+          <Route
+            path="profiles"
+            element={<PrivateRoute component={Profiles} />}
+          />
           <Route
             path="dashboard"
             element={<PrivateRoute component={Dashboard} />}
@@ -60,10 +63,6 @@ const App = () => {
             path="edit-profile"
             element={<PrivateRoute component={ProfileForm} />}
           />
-          {/* <Route
-          path=""
-          element={<PrivateRoute component={} />}
-          /> */}
           <Route path="/*" element={<NotFound />} />
         </Routes>
       </Router>
