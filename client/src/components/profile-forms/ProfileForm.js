@@ -5,11 +5,6 @@ import { connect } from 'react-redux';
 import { createProfile, getCurrentProfile } from '../../actions/profile';
 import api from '../../utils/api';
 
-/*
-  NOTE: declare initialState outside of component
-  so that it doesn't trigger a useEffect
-  we can then safely use this to construct our profileData
- */
 const initialState = {
   company: '',
   website: '',
@@ -43,12 +38,11 @@ const ProfileForm = ({
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    setSelectedFiles(files);
+    setSelectedFiles((prevFiles) => [...prevFiles, ...files]);
   };
 
   const handleUpload = async () => {
-    try{
-
+    try {
       const formData = new FormData();
       formData.append('profile', profile._id);
       selectedFiles.forEach((file, index) => {
@@ -56,9 +50,9 @@ const ProfileForm = ({
       });
       const response = await api.post('/upload', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });     
+          'Content-Type': 'multipart/form-data'
+        }
+      });
       console.log('Image uploaded successfully:', response.data);
 
       setSelectedFiles([]);
@@ -84,7 +78,7 @@ const ProfileForm = ({
           profileData[key] = profile.social[key];
         }
       }
-      
+
       setFormData(profileData);
     }
   }, [loading, getCurrentProfile, profile]);
@@ -182,7 +176,7 @@ const ProfileForm = ({
             City & state suggested (eg. Boston, MA)
           </small>
         </div>
-        
+
         <div className="form-group">
           <textarea
             placeholder="A short bio of yourself"
@@ -289,7 +283,7 @@ const ProfileForm = ({
                 onChange={onChange}
               />
             </div>
-            
+
             <div className="form-group social-input">
               <i className="fas fa-plus fa-2x" />
               <input
@@ -303,18 +297,33 @@ const ProfileForm = ({
           </Fragment>
         )}
 
-      <div className="form-group">
-        <input type="file" multiple onChange={handleFileChange} />
-        <button onClick={handleUpload}>Upload Image</button>
-        <br />
-        <small>Select First file and Profile Pic and Second file as Company Logo and the rest 4 images for the gallery</small>
-      </div>
-          
-      <input type="submit" className="btn btn-primary my-1" />
-      <Link className="btn btn-light my-1" to="/dashboard">
-        Go Back
-      </Link>
-    </form>
+        <div className="form-group">
+          <label>Profile Picture</label>
+          <br />
+          <input type="file" multiple onChange={handleFileChange} />
+          <br />
+
+          <label>Business Logo</label>
+          <br />
+          <input type="file" multiple onChange={handleFileChange} />
+          <br />
+          <label>Slider Images</label>
+          <br />
+          <input type="file" multiple onChange={handleFileChange} />
+
+          <button onClick={handleUpload}>Upload Image</button>
+          <br />
+          <small>
+            Select First file and Profile Pic and Second file as Company Logo
+            and the rest 4 images for the gallery
+          </small>
+        </div>
+
+        <input type="submit" className="btn btn-primary my-1" />
+        <Link className="btn btn-light my-1" to="/dashboard">
+          Go Back
+        </Link>
+      </form>
     </section>
   );
 };
